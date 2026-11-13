@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Wordmark from '../components/Wordmark.astro';
 import ContactForm from '../components/ContactForm.astro';
+import { asset } from '../url';
 import { firm, taglines, areas, bio, pullQuote } from '../content';
 ---
 <Base>
@@ -19,7 +20,7 @@ import { firm, taglines, areas, bio, pullQuote } from '../content';
 
   <main id="main">
     <section id="top" class="relative isolate flex min-h-[88svh] items-end bg-navy text-white">
-      <img src="/images/hero-scales.jpg" alt="" width="850" height="565" fetchpriority="high" class="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
+      <img src={asset('/images/hero-scales.jpg')} alt="" width="850" height="565" fetchpriority="high" class="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
       <div class="absolute inset-0 -z-10 bg-gradient-to-t from-[oklch(0.2_0.05_255/0.95)] via-[oklch(0.2_0.05_255/0.7)] to-[oklch(0.2_0.05_255/0.35)]"></div>
       <div class="mx-auto w-full max-w-6xl px-6 pb-20 pt-40">
         <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-accent-soft">Dallas, Texas</p>
@@ -43,7 +44,7 @@ import { firm, taglines, areas, bio, pullQuote } from '../content';
       <ul class="mt-12 grid gap-6 md:grid-cols-3">
         {areas.map((a) => (
           <li class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black/5">
-            <img src={a.image} alt={a.alt} width="850" height="565" loading="lazy" class="aspect-[3/2] w-full object-cover" />
+            <img src={asset(a.image)} alt={a.alt} width="850" height="565" loading="lazy" class="aspect-[3/2] w-full object-cover" />
             <h3 class="px-6 py-5 text-xl font-semibold">{a.title}</h3>
           </li>
         ))}
@@ -53,7 +54,7 @@ import { firm, taglines, areas, bio, pullQuote } from '../content';
 
     <section id="about" class="bg-stone py-24">
       <div class="mx-auto grid max-w-6xl gap-14 px-6 md:grid-cols-[minmax(0,18rem)_1fr]">
-        <img src="/images/mark.jpg" alt="Portrait of attorney Mark Cohan" width="533" height="800" loading="lazy" class="w-full max-w-xs rounded-lg object-cover shadow-md" />
+        <img src={asset('/images/mark.jpg')} alt="Portrait of attorney Mark Cohan" width="533" height="800" loading="lazy" class="w-full max-w-xs rounded-lg object-cover shadow-md" />
         <div>
           <h2 class="text-3xl font-semibold sm:text-4xl">About Mark</h2>
           <div class="mt-6 space-y-5 text-lg leading-relaxed">{bio.slice(0, 2).map((p) => <p>{p}</p>)}</div>
