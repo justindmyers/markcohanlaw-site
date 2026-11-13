@@ -55,4 +55,4 @@ The built page has no inline scripts/styles/handlers (checked), so no `'unsafe-i
 5. Check: site on both hostnames, form delivers, mail still arrives, headers present. Keep the old WordPress host untouched until all of this passes.
 
 ## API token (if scripting this)
-Create a custom token and paste it into `~/markcohan/.cf-token` yourself (outside the repo, `chmod 600`). Scope it to this zone/account only: Zone Read, DNS Edit, Zone Settings Edit, Zone WAF Edit, Transform Rules Edit, Workers Routes Edit, plus Account: Workers Scripts Edit and Turnstile Edit. Dashboard permission names vary slightly. Revoke the token when finished.
+Create a custom token and paste it into `~/Documents/Projects/markcohan/.cf-token` yourself (one level above the repo, so it can never be committed; `chmod 600`). Scope it to this zone/account only: Zone Read, DNS Edit, Zone Settings Edit, Zone WAF Edit, Transform Rules Edit, Workers Routes Edit, plus Account: Workers Scripts Edit and Turnstile Edit. Dashboard permission names vary slightly. Revoke the token when finished.
