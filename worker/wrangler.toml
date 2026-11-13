@@ -1,0 +1,19 @@
+name = "markcohanlaw-contact"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Same-origin route (set after the zone is on Cloudflare):
+# routes = [{ pattern = "markcohanlaw.com/api/contact", zone_name = "markcohanlaw.com" }]
+
+[vars]
+# Add the github.io origin only while testing; remove it at cutover.
+ALLOWED_ORIGINS = "https://markcohanlaw.com,https://www.markcohanlaw.com,https://justindmyers.github.io"
+CONTACT_TO = "mark@markcohanlaw.com"
+SMTP_FROM = "noreply@markcohanlaw.com"
+SMTP_HOST = "mail.markcohanlaw.com"
+SMTP_PORT = "465"
+SMTP_SECURE = "true"
+SMTP_STARTTLS = "false"
+
+# Secrets (set with `wrangler secret put`, never committed): TURNSTILE_SECRET, SMTP_USER, SMTP_PASS

@@ -93,6 +93,7 @@ import { firm } from '../content';
       } catch {
         status.textContent = 'Sorry, that did not go through. Please call 214-369-9871 or try again.';
         btn.disabled = false;
+        (window as any).turnstile?.reset(); // tokens are single-use
       }
       status.focus();
     });

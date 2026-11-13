@@ -5,3 +5,7 @@ dist
 .env.*
 install.log
 .wrangler
+worker/.dev.vars
+worker/node_modules
+worker/install.log
+.cf-token
