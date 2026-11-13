@@ -1,0 +1,9 @@
+---
+interface Props { class?: string; light?: boolean }
+const { class: cls = '', light = false } = Astro.props;
+---
+<span class:list={['inline-block font-serif uppercase leading-none', cls]} aria-label="Mark Cohan, Attorney and Counselor">
+  <span class="block text-[1.35em] tracking-[0.28em] font-semibold" aria-hidden="true">Mark Cohan</span>
+  <span class:list={['my-[0.45em] block h-px w-full', light ? 'bg-white/70' : 'bg-current']} aria-hidden="true"></span>
+  <span class="block text-[0.62em] tracking-[0.32em]" aria-hidden="true">Attorney &amp; Counselor</span>
+</span>

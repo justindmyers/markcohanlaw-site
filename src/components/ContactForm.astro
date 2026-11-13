@@ -1,0 +1,100 @@
+---
+// Posts to the contact Worker. Endpoint + Turnstile key come from build-time env (public values only).
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '';
+import { firm } from '../content';
+---
+<form id="contact-form" method="post" action={endpoint || undefined} novalidate aria-labelledby="contact-heading" data-endpoint={endpoint} data-sitekey={siteKey}>
+  <div class="field">
+    <label for="name">Your name <span aria-hidden="true">*</span></label>
+    <input id="name" name="name" type="text" required maxlength="100" autocomplete="name" aria-describedby="name-err" />
+    <span id="name-err" class="error"></span>
+  </div>
+  <div class="field">
+    <label for="email">Email <span aria-hidden="true">*</span></label>
+    <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="email-err" />
+    <span id="email-err" class="error"></span>
+  </div>
+  <div class="field">
+    <label for="phone">Phone <span class="font-normal text-muted">(optional)</span></label>
+    <input id="phone" name="phone" type="tel" maxlength="30" autocomplete="tel" inputmode="tel" />
+  </div>
+  <div class="field">
+    <label for="message">Tell us briefly about your situation <span aria-hidden="true">*</span></label>
+    <textarea id="message" name="message" required minlength="10" maxlength="3000" aria-describedby="message-hint message-err"></textarea>
+    <span id="message-hint" class="hint">Please don’t include confidential details yet. Sending this message does not create an attorney–client relationship.</span>
+    <span id="message-err" class="error"></span>
+  </div>
+
+  <!-- Honeypot: hidden from people and assistive tech -->
+  <div class="hp" aria-hidden="true"><label>Leave empty <input name="website" tabindex="-1" autocomplete="off" /></label></div>
+  <div id="turnstile" class="mb-5"></div>
+
+  <button class="btn" type="submit">Send message</button>
+  <p id="form-status" role="status" class="mt-4 font-medium" tabindex="-1"></p>
+  <noscript><p class="mt-4">JavaScript is needed to send this form. Please call <a class="underline" href={firm.phoneHref}>{firm.phone}</a> or email <a class="underline" href={`mailto:${firm.email}`}>{firm.email}</a>.</p></noscript>
+</form>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = document.getElementById('form-status')!;
+    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    const endpoint = form.dataset.endpoint ?? '';
+    const siteKey = form.dataset.sitekey ?? '';
+    const msgs: Record<string, string> = {
+      name: 'Please enter your name.',
+      email: 'Please enter a valid email address, like name@example.com.',
+      message: 'Please write at least a sentence about your situation.',
+    };
+    const fields = ['name', 'email', 'message'].map((id) => form.elements.namedItem(id) as HTMLInputElement);
+
+    const check = (el: HTMLInputElement) => {
+      const err = document.getElementById(`${el.id}-err`)!;
+      if (!el.checkValidity()) {
+        err.textContent = msgs[el.id];
+        el.setAttribute('aria-invalid', 'true');
+        return false;
+      }
+      err.textContent = '';
+      el.removeAttribute('aria-invalid');
+      return true;
+    };
+    fields.forEach((el) => {
+      el.addEventListener('blur', () => { if (el.value !== '' || el.hasAttribute('aria-invalid')) check(el); });
+      el.addEventListener('input', () => { if (el.hasAttribute('aria-invalid')) check(el); });
+    });
+
+    // Load Turnstile lazily on first interaction (keeps third-party JS off the initial load).
+    let tsLoaded = false;
+    const loadTurnstile = () => {
+      if (tsLoaded || !siteKey) return;
+      tsLoaded = true;
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true;
+      s.onload = () => (window as any).turnstile?.render('#turnstile', { sitekey: siteKey });
+      document.head.append(s);
+    };
+    form.addEventListener('focusin', loadTurnstile, { once: true });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const bad = fields.filter((el) => !check(el));
+      if (bad.length) { bad[0].focus(); return; }
+      if (!endpoint) { status.textContent = 'Form backend is not configured yet (preview build).'; status.focus(); return; }
+      btn.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form) });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = 'Thank you. Your message was sent and Mark will be in touch.';
+      } catch {
+        status.textContent = 'Sorry, that did not go through. Please call 214-369-9871 or try again.';
+        btn.disabled = false;
+      }
+      status.focus();
+    });
+  }
+</script>
