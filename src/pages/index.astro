@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Wordmark from '../components/Wordmark.astro';
-import ContactForm from '../components/ContactForm.astro';
 import { asset } from '../url';
 import { firm, taglines, areas, bio, pullQuote } from '../content';
 ---
@@ -26,7 +25,7 @@ import { firm, taglines, areas, bio, pullQuote } from '../content';
         <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-accent-soft">Dallas, Texas</p>
         <h1 class="max-w-3xl text-4xl font-semibold leading-[1.1] sm:text-6xl">{pullQuote}</h1>
         <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="#contact" class="btn">Tell us about your case</a>
+          <a href="#contact" class="btn">Contact Mark</a>
           <a href={firm.phoneHref} class="inline-flex min-h-12 items-center px-2 font-semibold underline underline-offset-4">Call {firm.phone}</a>
         </div>
       </div>
@@ -63,16 +62,12 @@ import { firm, taglines, areas, bio, pullQuote } from '../content';
       </div>
     </section>
 
-    <section id="contact" class="mx-auto grid max-w-6xl gap-14 px-6 py-24 md:grid-cols-2">
-      <div>
-        <h2 id="contact-heading" class="text-3xl font-semibold sm:text-4xl">Contact Us</h2>
-        <p class="mt-4 text-lg">To contact Mark about your case, call him at <a class="font-semibold underline underline-offset-4" href={firm.phoneHref}>{firm.phone}</a> or tell us about your case below:</p>
-        <address class="mt-8 space-y-2 not-italic">
-          <p>{firm.street}<br />{firm.city}, {firm.region} {firm.zip}</p>
-          <p><a class="underline underline-offset-4" href={`mailto:${firm.email}`}>{firm.email}</a></p>
-        </address>
-      </div>
-      <ContactForm />
+    <section id="contact" class="mx-auto max-w-6xl px-6 py-24">
+      <h2 id="contact-heading" class="text-3xl font-semibold sm:text-4xl">Contact Us</h2>
+      <p class="mt-4 max-w-3xl text-lg">To contact Mark about your case, call him at <a class="font-semibold underline underline-offset-4" href={firm.phoneHref}>{firm.phone}</a> or email <a class="font-semibold underline underline-offset-4" href={`mailto:${firm.email}`}>{firm.email}</a>.</p>
+      <address class="mt-8 space-y-2 not-italic text-lg">
+        <p>{firm.street}<br />{firm.city}, {firm.region} {firm.zip}</p>
+      </address>
     </section>
   </main>
 

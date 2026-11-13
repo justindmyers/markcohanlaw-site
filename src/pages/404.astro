@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import { firm } from '../content';
+---
+<Base title={`Page not found | ${firm.name}`}>
+  <main id="main" class="mx-auto max-w-xl px-6 py-32">
+    <h1 class="text-3xl font-semibold">Page not found</h1>
+    <p class="mt-4 text-lg">Go to the <a class="underline underline-offset-4" href="/">home page</a> or call <a class="underline underline-offset-4" href={firm.phoneHref}>{firm.phone}</a>.</p>
+  </main>
+</Base>
