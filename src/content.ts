@@ -12,9 +12,9 @@ export const firm = {
 };
 
 export const taglines = [
-  'If you are injured, Mark prepares and investigates every claim like it will be going to trial.',
+  'If you are injured Mark prepares and investigates every claim like it will be going to trial.',
   'Complicated issues require skilled attorneys. Contact Mark Cohan to find out how to pursue your claim.',
-  'If your lawyer has ruined your case, Mark will work to make sure you get just compensation.',
+  'If your lawyer has ruined your case Mark will work to make sure you get just compensation.',
 ];
 
 export const areas = [
@@ -23,6 +23,7 @@ export const areas = [
   { title: 'Wills and Estates', image: '/images/wills.jpg', alt: 'A pen on a last will and testament' },
 ];
 
+// (unused now; Mark's own sentence in bio[2] covers this)
 export const alsoHandles = [
   'Criminal defense',
   'Landlord–tenant disputes',
@@ -34,7 +35,7 @@ export const alsoHandles = [
 export const bio = [
   'Thank you for visiting the website for the Law Office of Mark Cohan. I started this law office to be a full-service attorney to people who need an attorney. People often experience several legal problems in their life, ranging from divorce law to auto accidents to wills and estates. And the way things work now is that people have to find a different lawyer for every problem.',
   'What I want to do is different. Instead of churning through your case as quickly as possible, I want you to come back to me if you ever have other legal problems. What this means is that I’ll treat you like a person, not just a case. I’ll actually return your phone calls and make sure you understand exactly what’s going on in your case. I’ll give you status reports whenever something changes. And above all, I want you to be satisfied so you come back if anything ever goes wrong.',
-  'While I mainly focus in family and personal injury law, I’m qualified to represent you in criminal defense cases, landlord tenant disputes, estate planning, estate litigation, and contract claims. And if there’s anything I think I can’t handle, I’ll tell you and send you to a lawyer who can.',
+  'While I mainly focus on family and personal injury law, I’m qualified to represent you in criminal defense cases, landlord tenant disputes, estate planning, estate litigation, and contract claims. And if there’s anything I think I can’t handle, I’ll tell you and send you to a lawyer who can.',
 ];
 
 export const pullQuote = 'You have a general practice doctor: why shouldn’t you have a general practice lawyer?';

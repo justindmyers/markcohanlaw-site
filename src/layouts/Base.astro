@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { firm } from '../content';
 interface Props { title?: string; description?: string }
-const { title = `${firm.name} | Dallas, Texas`, description = 'Personal injury, family law, and wills and estates attorney in Dallas, Texas. Mark Cohan returns your calls and treats you like a person, not a case.' } = Astro.props;
+const { title = `${firm.name} | Dallas, Texas`, description = 'Law Office of Mark Cohan, Dallas, Texas. If you are injured Mark prepares and investigates every claim like it will be going to trial.' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ld = {
   '@context': 'https://schema.org',

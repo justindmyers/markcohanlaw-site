@@ -1,12 +1,84 @@
 ---
 import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { firm, taglines, areas, bio, pullQuote } from '../content';
 ---
-<Base title="Design options | Mark Cohan">
-  <main id="main" class="mx-auto max-w-xl px-6 py-24">
-    <h1 class="text-3xl font-semibold">Design options (preview)</h1>
-    <ul class="mt-8 space-y-4 text-lg">
-      <li><a class="underline underline-offset-4" href="/b/">B: Modern editorial</a></li>
-      <li><a class="underline underline-offset-4" href="/c/">C: Quiet minimal</a></li>
-    </ul>
+<Base>
+  <header class="absolute inset-x-0 top-0 z-10 text-white">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+      <a href="#top" aria-label="Law Office of Mark Cohan, home"><Wordmark light class="text-[0.7rem] sm:text-xs" /></a>
+      <nav aria-label="Primary" class="hidden gap-8 text-sm font-medium sm:flex">
+        <a class="hover:underline underline-offset-8" href="#practice">Practice areas</a>
+        <a class="hover:underline underline-offset-8" href="#about">About</a>
+        <a class="hover:underline underline-offset-8" href="#contact">Contact</a>
+      </nav>
+      <a href={firm.phoneHref} class="text-sm font-semibold sm:hidden">Call</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="relative isolate flex min-h-[88svh] items-end bg-navy text-white">
+      <img src="/images/hero-scales.jpg" alt="" width="850" height="565" fetchpriority="high" class="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
+      <div class="absolute inset-0 -z-10 bg-gradient-to-t from-[oklch(0.2_0.05_255/0.95)] via-[oklch(0.2_0.05_255/0.7)] to-[oklch(0.2_0.05_255/0.35)]"></div>
+      <div class="mx-auto w-full max-w-6xl px-6 pb-20 pt-40">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-accent-soft">Dallas, Texas</p>
+        <h1 class="max-w-3xl text-4xl font-semibold leading-[1.1] sm:text-6xl">{pullQuote}</h1>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="#contact" class="btn">Tell us about your case</a>
+          <a href={firm.phoneHref} class="inline-flex min-h-12 items-center px-2 font-semibold underline underline-offset-4">Call {firm.phone}</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Highlights" class="border-b border-ink/10 bg-stone">
+      <ul class="mx-auto grid max-w-6xl gap-8 px-6 py-12 md:grid-cols-3">
+        {taglines.map((t) => <li class="font-serif text-xl leading-snug">{t}</li>)}
+      </ul>
+    </section>
+
+    <section id="practice" class="mx-auto max-w-6xl px-6 py-24">
+      <h2 class="text-3xl font-semibold sm:text-4xl">Practice areas</h2>
+      
+      <ul class="mt-12 grid gap-6 md:grid-cols-3">
+        {areas.map((a) => (
+          <li class="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black/5">
+            <img src={a.image} alt={a.alt} width="850" height="565" loading="lazy" class="aspect-[3/2] w-full object-cover" />
+            <h3 class="px-6 py-5 text-xl font-semibold">{a.title}</h3>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-10 max-w-3xl text-lg leading-relaxed">{bio[2]}</p>
+    </section>
+
+    <section id="about" class="bg-stone py-24">
+      <div class="mx-auto grid max-w-6xl gap-14 px-6 md:grid-cols-[minmax(0,18rem)_1fr]">
+        <img src="/images/mark.jpg" alt="Portrait of attorney Mark Cohan" width="533" height="800" loading="lazy" class="w-full max-w-xs rounded-lg object-cover shadow-md" />
+        <div>
+          <h2 class="text-3xl font-semibold sm:text-4xl">About Mark</h2>
+          <div class="mt-6 space-y-5 text-lg leading-relaxed">{bio.slice(0, 2).map((p) => <p>{p}</p>)}</div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="mx-auto grid max-w-6xl gap-14 px-6 py-24 md:grid-cols-2">
+      <div>
+        <h2 id="contact-heading" class="text-3xl font-semibold sm:text-4xl">Contact Us</h2>
+        <p class="mt-4 text-lg">To contact Mark about your case, call him at <a class="font-semibold underline underline-offset-4" href={firm.phoneHref}>{firm.phone}</a> or tell us about your case below:</p>
+        <address class="mt-8 space-y-2 not-italic">
+          <p>{firm.street}<br />{firm.city}, {firm.region} {firm.zip}</p>
+          <p><a class="underline underline-offset-4" href={`mailto:${firm.email}`}>{firm.email}</a></p>
+        </address>
+      </div>
+      <ContactForm />
+    </section>
   </main>
+
+  <footer class="bg-navy py-10 text-sm text-white/80">
+    <div class="mx-auto max-w-6xl space-y-2 px-6">
+      <p>© {new Date().getFullYear()} {firm.name}. Dallas, Texas.</p>
+      <p>Information on this website is general and is not legal advice. Contacting the firm does not create an attorney–client relationship.</p>
+    </div>
+  </footer>
 </Base>
